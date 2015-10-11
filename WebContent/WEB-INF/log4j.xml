@@ -13,7 +13,7 @@
 		</layout>
 	</appender>
 	
-	<logger name="com.siva" additivity="false">
+	<logger name="com.csuf" additivity="false">
 		<level value="DEBUG" />
 		<appender-ref ref="dbexample"/>
 	</logger>

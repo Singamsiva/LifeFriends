@@ -12,21 +12,21 @@
         <p><%= message %></p>
     <% } %>
 
-    <form action="Register" method="post">
+    <form name="register" action="RegisterServlet" method="post">
         <input type="text" placeholder="First Name" name="firstname"><br>
-        <input type="text" placeholder="Middle Name" name="firstname"><br>
+        <input type="text" placeholder="Middle Name" name="middlename"><br>
         <input type="text" placeholder="Last Name" name="lastname"><br>
-        <input type="text" placeholder="Email" name="email"><br>
-        <input type="text" placeholder="Confirm Email" name="email1"><br>
+        <input type="email" placeholder="Email" name="email"><br>
+        <input type="email" placeholder="Confirm Email" name="email1"><br>
         <input type="password" placeholder="Password" name="password"><br>
         <input type="text" placeholder="DOB: MM/DD/YYYY" name="dob"><br>
-        <input type="text" placeholder="Phone" name="phone"><br>
+        <input type="text" placeholder="Phone" name="phone" id="phone"><br>
         <input type="text" placeholder="Address" name="address"><br>
         <input type="text" placeholder="City" name="city"><br>
         <input type="text" placeholder="State" name="state"><br>
         <input type="text" placeholder="Zip" name="zip"><br>
         <input type="text" placeholder="Country" name="country"><br>
-        <select name="bloodtype">
+        <select name="bloodgroup">
             <option selected disabled>Select your Blood group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
@@ -43,9 +43,22 @@
             <option value="female">Female</option>
         </select><br>
         Are you a Donor : <input type="checkbox" name="donor"><br><br>
-        <input type="submit" value="Register">
+        <input type="submit" value="Register" onclick="validate();">
+        <script type="text/javascript">
+        function validate()
+        {
+        	var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/; 
+        	if (document.getElementById("phone").value.match(phoneno)) {
+        		return true;
+        	} else{
+        		alert("Not a valid Phone Number");  
+        	       return false;
+        	}
+        }
+        
+        </script>
     </form>
 
-    <p>Already a user? <a href="Login.jsp">Login here</a></p>
+    <p>Already a user? <a href="UserLogin.html">Login here</a></p>
 </body>
 </html>

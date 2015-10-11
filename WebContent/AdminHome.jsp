@@ -8,7 +8,8 @@
     <title>Admin Home</title>
 </head>
 <body>
-<a href="/Logout">Logout</a>
-
+<form action="Logout" method="post">
+<input type="submit" value="Logout">
+</form>
 </body>
 </html>

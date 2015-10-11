@@ -14,7 +14,7 @@
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
-    <param-value>jdbc:mysql://localhost:3306/bloodnetwork</param-value>
+    <param-value>jdbc:mysql://localhost:3306/lifefriends</param-value>
   </context-param>
   <context-param>
     <param-name>log4j-config</param-name>
@@ -30,7 +30,7 @@
   </context-param>
   <servlet>
     <servlet-name>Logout</servlet-name>
-    <servlet-class>com.siva.servlet.LogoutServlet</servlet-class>
+    <servlet-class>com.csuf.servlet.LogoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Logout</servlet-name>
@@ -46,7 +46,7 @@
   </error-page>
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
-    <filter-class>com.siva.filters.AuthenticationFilter</filter-class>
+    <filter-class>com.csuf.filters.AuthenticationFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>AuthenticationFilter</filter-name>

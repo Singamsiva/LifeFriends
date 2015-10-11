@@ -31,7 +31,7 @@ public class UserHomeServlet extends HttpServlet {
 		String search = request.getParameter("search");
 		HttpSession session = request.getSession();
 		User user= (User) session.getAttribute("User");
-		String blood=user.getBloodtype();
+		String blood=user.getBloodgroup();
 		
 		String errorMsg = null;
 		if(search == null || search.equals("")){
@@ -53,7 +53,7 @@ public class UserHomeServlet extends HttpServlet {
 			ArrayList<String> al = null;
         
 			ArrayList<ArrayList<String>> blood_list = new ArrayList<ArrayList<String>>();
-			ps = con.prepareStatement("select * from users where bloodtype= ? ");
+			ps = con.prepareStatement("select * from user where bloodgroup= ? ");
 			ps.setString(1, search);
 			rs = ps.executeQuery();
 			

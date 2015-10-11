@@ -49,17 +49,19 @@ public class UserLogin extends HttpServlet {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = con.prepareStatement("select * from users where email=? and password=? limit 1");
+			ps = con.prepareStatement("select * from user where email=? and password=? limit 1");
 			ps.setString(1, email);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
 			
 			if(rs != null & rs.next()){
-				User user = new User(rs.getString("firstname"),rs.getString("lastname"), rs.getString("password"), rs.getString("email"),rs.getString("dob"),rs.getString("gender"),rs.getString("bloodtype"),rs.getString("uid"));
+				User user = new User(rs.getString("email"),rs.getString("password"),rs.getString("firstname"),rs.getString("middlename"),rs.getString("lastname"),rs.getDate("createddate"),rs.getDate("updateddate"),rs.getDate("DOB"),
+						rs.getString("phone"), rs.getString("address"),rs.getString("city"), rs.getString("state"), rs.getString("zip"), rs.getString("country"),rs.getString("bloodgroup"),rs.getString("gender"),
+						rs.getInt("roleid"), rs.getBoolean("active"),rs.getBoolean("isdonor"), rs.getBoolean("lifecertified"),rs.getBoolean("officialcertified"));
 				logger.info("User found with details="+email);
 				HttpSession session = request.getSession();
 				session.setAttribute("User", user);
-				response.sendRedirect("DonorHome.jsp");
+				response.sendRedirect("AdminHome.jsp");
 		
 				
 			}else{
