@@ -11,9 +11,9 @@
 <body>
 <% User user= (User) session.getAttribute("User"); %>
 <% session.setAttribute("User",user); %>
-<p>Hi Donor..!!!!</p><br><br>
+<p>Hi <%user.getFirstname(); %>..!!!!</p><br><br>
 <form action="DonorHomeServlet" method="post">
-<input type="text" placeholder="Enter Pincode or Blood group" name="search"> <input type="submit" value="Search">
+<input type="text" placeholder="Enter Blood group" name="search"> <input type="submit" value="Search">
 </form>
 <div>
 <table width="700px" align="center"
@@ -26,12 +26,13 @@
             <tr style="background-color:lightgrey;">
                 <td><b>First Name</b></td>
                 <td><b>Last Name</b></td>
-                <td><b>Password</b></td>
                 <td><b>Email</b></td>
-                <td><b>DOB</b></td>
-                 <td><b>Gender</b></td>
-                <td><b>Blood Type</b></td>
-                <td><b>UID</b></td>
+                <td><b>Phone</b></td>
+                <td><b>Address</b></td>
+                 <td><b>City</b></td>
+                <td><b>State</b></td>
+                <td><b>Zip</b></td>
+                <td><b>Gender</b></td>
             </tr>
             <%
                 int count = 0;
@@ -57,6 +58,7 @@
                 <td><%=BloodList.get(5)%></td>
                 <td><%=BloodList.get(6)%></td>
                 <td><%=BloodList.get(7)%></td>
+                <td><%=BloodList.get(8)%></td>
             </tr>
             <%
                     }

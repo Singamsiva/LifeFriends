@@ -3,11 +3,11 @@ package com.csuf.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import com.csuf.util.EmailUtility;;
 
 
 @WebServlet(name = "RegisterServlet", urlPatterns = { "/RegisterServlet" })
@@ -22,6 +23,18 @@ public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	static Logger logger = Logger.getLogger(RegisterServlet.class);
+	private String host;
+	private String port;
+	private String user;
+	private String pass;
+	public void init() {
+	    // reads SMTP server setting from web.xml file
+	    ServletContext context = getServletContext();
+	    host = context.getInitParameter("host");
+	    port = context.getInitParameter("port");
+	    user = context.getInitParameter("user");
+	    pass = context.getInitParameter("pass");
+	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstname = request.getParameter("firstname");
@@ -101,7 +114,7 @@ public class RegisterServlet extends HttpServlet {
 	}
 		
 		if(errorMsg != null){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/Register.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.html");
 			PrintWriter out= response.getWriter();
 			out.println("<font color=red>"+errorMsg+"</font>");
 			rd.include(request, response);
@@ -130,11 +143,32 @@ public class RegisterServlet extends HttpServlet {
 			
 			logger.info("User registered with email="+email);
 			
+			String recipient =email;
+			//recipient +=";";
+			//recipient +=rs.getString("email");
+			String message= "Welcome"+firstname+"to Life Friends";
+			//message +="Patient Address:<b>" +rs.getString("currentaddress")+ "</b><br><br>";
+			//message +="<i>Regards!</i><br>";
+	        //message += "<b>Wish you a nice day!</b><br>";
+	        //message += "<font color=red>MRSS</font>"; 
+	        String subject = "Welcome Mail";
+	        String resultMessage= "";
+	        try {
+	            EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
+	                    message);
+	            resultMessage = "The e-mail was sent successfully";
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	            resultMessage = "There were an error: " + ex.getMessage();
+	        }
+	        
+	        System.out.println(resultMessage);
+			
 			//forward to login page to login
 			//PrintWriter out= response.getWriter();
 			//out.println("<font color=green>Registration successful, please login below.</font>");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserLogin.html");
-			request.setAttribute("Message", "Register Successful, Please Login below");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+			request.setAttribute("Message", "Registration Successful, Please Login below");
 			rd.include(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();

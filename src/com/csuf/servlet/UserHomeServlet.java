@@ -64,14 +64,16 @@ public class UserHomeServlet extends HttpServlet {
 //                out.println(rs.getString(2));
 //                out.println(rs.getString(3));
 //                out.println(rs.getString(4));
-                al.add(rs.getString(1));
-                al.add(rs.getString(2));
-                al.add(rs.getString(3));
-                al.add(rs.getString(4));
-                al.add(rs.getString(5));
-                al.add(rs.getString(6));
-                al.add(rs.getString(7));
-                al.add(rs.getString(8));
+                al.add(rs.getString("firstname"));
+                al.add(rs.getString("lastname"));
+                al.add(rs.getString("email"));
+                al.add(rs.getString("phone"));
+                al.add(rs.getString("address"));
+                al.add(rs.getString("city"));
+                al.add(rs.getString("state"));
+                al.add(rs.getString("zip"));
+                al.add(rs.getString("ge"
+                		+ "nder"));
  
                 System.out.println("al :: " + al);
                 blood_list.add(al);

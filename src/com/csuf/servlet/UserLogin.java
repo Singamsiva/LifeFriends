@@ -38,7 +38,7 @@ public class UserLogin extends HttpServlet {
 		}
 		
 		if(errorMsg != null){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserLogin.html");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 			//request.setAttribute("Message", "Fields Can't be Null or Empty");
 			PrintWriter out= response.getWriter();
 			out.println("<font color=red>"+errorMsg+"</font>");
@@ -61,11 +61,11 @@ public class UserLogin extends HttpServlet {
 				logger.info("User found with details="+email);
 				HttpSession session = request.getSession();
 				session.setAttribute("User", user);
-				response.sendRedirect("AdminHome.jsp");
+				response.sendRedirect("UserHome.jsp");
 		
 				
 			}else{
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserLogin.html");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 				PrintWriter out= response.getWriter();
 				//request.setAttribute("Message", "No user found with given email id, please register first.");
 				//response.sendRedirect("Patientlogin.jsp"); 
