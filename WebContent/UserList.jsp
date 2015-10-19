@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="com.csuf.util.User"%>
+<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>User Home</title>
+    <title>User List</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -33,7 +34,7 @@
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"></strong>
-                             </span> <span class="text-muted text-xs block"><%=user.getFirstname() %><b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block"><%=user.getFirstname()%><b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>
                         </ul>
@@ -48,7 +49,7 @@
                 <li>
                     <a href="UserList.jsp"><i class="fa fa-th-large"></i> <span class="nav-label">User List</span> </a>
                 </li>
-                <li>
+                 <li>
                     <a href="EditProfile.jsp"><i class="fa fa-th-large"></i> <span class="nav-label">Edit Profile</span> </a>
                 </li>
                 <li>
@@ -79,7 +80,7 @@
                 </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/Logout">
-                            <i class="fa fa-sign-out"></i> Logout
+                            <i class="fa fa-sign-out"></i> Log out
                         </a>
                     </li>
                 </ul>
@@ -88,17 +89,71 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-9">
-                    <h2>User Home</h2>
+                    <h2>Search List</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="UserHome.jsp">Home</a>
                         </li>
                         <li class="active">
-                            <strong>Profile</strong>
+                            <strong>User List</strong>
                         </li>
                     </ol>
                 </div>
             </div>
+            
+  <div class="wrapper wrapper-content animated fadeInRight">
+           <div class="row">
+           <%
+                int count = 0;
+                String color = "#F9EBB3";
+                if (request.getAttribute("BloodList") != null) {
+                    ArrayList al = (ArrayList) request.getAttribute("BloodList");
+                    System.out.println(al);
+                    Iterator itr = al.iterator();
+                    while (itr.hasNext()) {
+                        ArrayList BloodList = (ArrayList) itr.next();
+                 %>
+            <div class="col-lg-3">
+                <div class="contact-box center-version">
+                    <a href="#">
+
+                        <img alt="image" class="img-circle" src="img/a2.jpg">
+
+
+                        <h3 class="m-b-xs"><strong><%=BloodList.get(0)%> <%=BloodList.get(1)%></strong></h3>
+
+                        <div class="font-bold"><%=BloodList.get(8)%></div>
+                        <address class="m-t-md">
+                            <strong>Donor</strong><br>
+                            <%=BloodList.get(4)%><br>
+                            <%=BloodList.get(5)%>,<%=BloodList.get(6)%>,<%=BloodList.get(7)%><br>
+                            <abbr title="Phone">P:</abbr> <%=BloodList.get(3)%>
+                        </address>
+
+                    </a>
+                    <div class="contact-box-footer">
+                        <div class="m-t-xs btn-group">
+                            <a class="btn btn-xs btn-white"><i class="fa fa-phone"></i> Call </a>
+                            <a class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
+                            <a class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <%
+                    }
+                }
+                if (count == 0) {
+                	System.out.println("No record found");
+            %>
+          
+            <%            }
+            %>
+		</div>
+	</div>
+        </div>
+        
         <div class="footer">
             <div class="pull-right">
                

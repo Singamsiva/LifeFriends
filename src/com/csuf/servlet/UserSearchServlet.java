@@ -20,18 +20,23 @@ import org.apache.log4j.Logger;
 
 import com.csuf.util.User;
 
-@WebServlet(name = "UserHomeServlet", urlPatterns = { "/UserHomeServlet" })
-public class UserHomeServlet extends HttpServlet {
+@WebServlet(name = "UserSearchServlet", urlPatterns = { "/UserSearchServlet" })
+public class UserSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	static Logger logger = Logger.getLogger(UserHomeServlet.class);
+	static Logger logger = Logger.getLogger(UserSearchServlet.class);
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
 		HttpSession session = request.getSession();
 		User user= (User) session.getAttribute("User");
-		String blood=user.getBloodgroup();
+		String zip=user.getZip();
+		int zip1=Integer.parseInt(zip)-100;
+		System.out.println(zip1);
+		int zip2=Integer.parseInt(zip)+100;
+		System.out.println(zip2);
+		
 		
 		String errorMsg = null;
 		if(search == null || search.equals("")){
@@ -39,7 +44,7 @@ public class UserHomeServlet extends HttpServlet {
 		}
 		
 		if(errorMsg != null){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/DonorHome.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserHome.jsp");
 			//request.setAttribute("Message", "Fields Can't be Null or Empty");
 			PrintWriter out= response.getWriter();
 			out.println("<font color=red>"+errorMsg+"</font>");
@@ -52,9 +57,10 @@ public class UserHomeServlet extends HttpServlet {
 		try {
 			ArrayList<String> al = null;
         
-			ArrayList<ArrayList<String>> blood_list = new ArrayList<ArrayList<String>>();
-			ps = con.prepareStatement("select * from user where bloodgroup= ? ");
-			ps.setString(1, search);
+			ArrayList<ArrayList<String>> search_list = new ArrayList<ArrayList<String>>();
+			ps = con.prepareStatement("select * from user where zip between ? and ?");
+			ps.setInt(1, zip1);
+			ps.setInt(2, zip2);
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -72,14 +78,13 @@ public class UserHomeServlet extends HttpServlet {
                 al.add(rs.getString("city"));
                 al.add(rs.getString("state"));
                 al.add(rs.getString("zip"));
-                al.add(rs.getString("ge"
-                		+ "nder"));
+                al.add(rs.getString("gender"));
  
                 System.out.println("al :: " + al);
-                blood_list.add(al);
+                search_list.add(al);
             }
-			request.setAttribute("BloodList", blood_list);
-            RequestDispatcher view = request.getRequestDispatcher("/DonorHome.jsp");
+			request.setAttribute("BloodList", search_list);
+            RequestDispatcher view = request.getRequestDispatcher("/UserList.jsp");
             view.forward(request, response);
             con.close();
             System.out.println("Disconnected!");
