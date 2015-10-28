@@ -56,7 +56,6 @@ public class UserSearchServlet extends HttpServlet {
 		ResultSet rs = null;
 		try {
 			ArrayList<String> al = null;
-        
 			ArrayList<ArrayList<String>> search_list = new ArrayList<ArrayList<String>>();
 			ps = con.prepareStatement("select * from user where zip between ? and ?");
 			ps.setInt(1, zip1);
