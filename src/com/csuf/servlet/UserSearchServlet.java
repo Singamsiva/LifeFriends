@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.csuf.util.User;
+import com.csuf.bean.User;
 
 @WebServlet(name = "UserSearchServlet", urlPatterns = { "/UserSearchServlet" })
 public class UserSearchServlet extends HttpServlet {
